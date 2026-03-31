@@ -2,12 +2,16 @@
 const express = require('express');
 const app = express();
 require('dotenv').config();
-const bodyParser = require('body-parser');
+const morgan = require('morgan');
 
 const port = process.env.PORT || 5000;
 
+if (process.env.NODE_ENV === 'development') {
+    app.use(morgan('dev'));
+}
+
 app.use(express.urlencoded({ extended: true }))
-    .use(bodyParser.json())
+    .use(express.json())
     .use((req, res, next) => {
         res.setHeader('Access-Control-Allow-Origin', '*');
         next();
