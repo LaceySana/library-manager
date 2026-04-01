@@ -4,7 +4,7 @@ const authorController = {};
 // o Id
 // o First name
 // o Last name
-// o Nationality
+// o Nationality (Optional)
 // o DOB
 // o DOD (Optional)
 // o Biography (Optional)
