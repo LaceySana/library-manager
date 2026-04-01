@@ -11,7 +11,6 @@ const authorSchema = new mongoose.Schema({
   },
   nationality: {
     type: String,
-    required: true
   },
   dob: {
     type: String,
