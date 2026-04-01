@@ -1,4 +1,4 @@
-// const { handleErrors, mapObjects } = require('../utils');
+const { handleErrors, mapObjects } = require("../utils");
 
 const controllers = {
     authorsController: require("./authors"),
@@ -6,6 +6,4 @@ const controllers = {
 };
 
 // Export all controllers with their handlers wrapped in error handling middleware
-// module.exports = mapObjects(controllers, handleErrors)
-
-module.exports = controllers;
+module.exports = mapObjects(controllers, handleErrors);
