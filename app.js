@@ -25,4 +25,4 @@ process.on("uncaughtException", (err, origin) => {
     console.log(process.stderr.fd, `Caught exception: ${err}\n` + `Exception origin: ${origin}`);
 });
 
-app.listen(port, console.log(`Web server is listening at port ${port}`));
+app.listen(port, console.log(`Web server is listening at http://localhost:${port}`));
