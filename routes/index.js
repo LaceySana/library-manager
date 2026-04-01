@@ -4,4 +4,7 @@ router.use("/", (req, res) => {
     res.send("Hello World");
 });
 
+//Author Routes
+router.use("/authors", require("./authors"));
+
 module.exports = router;
