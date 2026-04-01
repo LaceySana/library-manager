@@ -48,7 +48,7 @@ authorController.create = async (req, res) => {
              schema: {
                $firstName: "Jane",
                $lastName: "Smith",
-               $nationality: "American",
+               nationality: "American",
                $dob: "1980-01-01",
                dod: "2040-01-01",
                biography: "Jane Smith is a renowned author known for her fantasy novels."
