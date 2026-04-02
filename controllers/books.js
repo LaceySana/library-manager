@@ -1,4 +1,4 @@
-const booksModel = require("../models/authors");
+const booksModel = require("../models/books");
 const bookController = {};
 
 bookController.getAll = async (req, res) => {
@@ -111,7 +111,7 @@ bookController.update = async (req, res) => {
     }
 };
 
-bookController.deleteById = async (req, res) => {
+bookController.delete = async (req, res) => {
     // #swagger.description = 'Delete book by ID.'
     // #swagger.tags = ['books']
 

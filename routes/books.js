@@ -1,11 +1,11 @@
 const router = require("express").Router();
-const booksController = require("../controller/books");
+const bookController = require("../controllers/books");
 // const validator = require("../middleware/validate");
 
-router.get("/", booksController.getAll);
-router.get("/:id", booksController.getById);
-router.post("/", /* validator.createBook, */ booksController.create);
-router.put("/:id", /* validator.updateBook, */ booksController.update);
-router.delete("/:id", booksController.delete);
+router.get("/", bookController.getAll);
+router.get("/:id", bookController.get);
+router.post("/", /* validator.createBook, */ bookController.create);
+router.put("/:id", /* validator.updateBook, */ bookController.update);
+router.delete("/:id", bookController.delete);
 
 module.exports = router;
