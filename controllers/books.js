@@ -2,9 +2,6 @@ const booksModel = require("../models/books");
 const bookController = {};
 
 bookController.getAll = async (req, res) => {
-    // #swagger.description = 'Get all books.'
-    // #swagger.tags = ['books']
-
     try {
         const books = await booksModel.find({});
         res.status(200).json(books);
@@ -14,9 +11,6 @@ bookController.getAll = async (req, res) => {
 };
 
 bookController.get = async (req, res) => {
-    // #swagger.description = 'Get one book by ID.'
-    // #swagger.tags = ['books']
-
     try {
         const book = await booksModel.findById(req.params.id);
         if (!book) {
@@ -29,23 +23,6 @@ bookController.get = async (req, res) => {
 };
 
 bookController.create = async (req, res) => {
-    // #swagger.description = "Create a new book."
-    // #swagger.tags = ["books"]
-    /* #swagger.parameter["body"] = {
-        in: 'body',
-        schema: {
-            $title: "",
-            $authorId: "",
-            publishYear: "",
-            $isbn: "",
-            genre: "",
-            image: "",
-            awards: "",
-            $copiesOwned: "",
-            $copiesAvailable: ""
-        }
-    } */
-
     try {
         const book = {
             title: req.body.title,
@@ -66,23 +43,6 @@ bookController.create = async (req, res) => {
 };
 
 bookController.update = async (req, res) => {
-    // #swagger.description = "Update book by ID."
-    // #swagger.tags = ["books"]
-    /* #swagger.parameter["body"] = {
-        in: 'body',
-        schema: {
-            $title: "",
-            $authorId: "",
-            publishYear: "",
-            $isbn: "",
-            genre: "",
-            image: "",
-            awards: "",
-            $copies owned: "",
-            $copies available: ""
-        }
-    } */
-
     try {
         const updatedBook = await booksModel.findByIdAndUpdate(
             req.params.id,
@@ -112,9 +72,6 @@ bookController.update = async (req, res) => {
 };
 
 bookController.delete = async (req, res) => {
-    // #swagger.description = 'Delete book by ID.'
-    // #swagger.tags = ['books']
-
     try {
         const result = await booksModel.findByIdAndDelete(req.params.id);
 
