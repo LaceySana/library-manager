@@ -2,12 +2,16 @@
 const express = require("express");
 const app = express();
 require("dotenv").config();
-const mongodb = require("./database/db");    
-const bodyParser = require("body-parser");  
+const morgan = require("morgan");
+const connectDB = require("./database/db");
+
+connectDB();
 
 const port = process.env.PORT || 5000;
 
-app.use(bodyParser.json());
+if (process.env.NODE_ENV === "development") {
+    app.use(morgan("dev"));
+}
 
 app.use(express.urlencoded({ extended: true }))
     .use(express.json())
@@ -17,24 +21,8 @@ app.use(express.urlencoded({ extended: true }))
     })
     .use("/", require("./routes"));
 
-
 process.on("uncaughtException", (err, origin) => {
-	console.error(`Caught exception: ${err}\nException origin: ${origin}`);
-	process.exit(1);
+    console.log(process.stderr.fd, `Caught exception: ${err}\n` + `Exception origin: ${origin}`);
 });
 
-mongodb.initDb((err) => {
-	if (err) {
-		console.error("Database initialization failed:", err);
-		console.warn(
-			"Starting server without a database connection (development mode).",
-		);
-		app.listen(port, () => {
-			console.log(`Server is running on http://localhost:${port}`);
-		});
-	} else {
-		app.listen(port, () => {
-			console.log(`Server is running on http://localhost:${port}`);
-		});
-	}
-});
+app.listen(port, console.log(`Web server is listening at http://localhost:${port}`));
