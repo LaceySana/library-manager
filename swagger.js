@@ -5,8 +5,6 @@ const doc = {
         title: "Library Manager API",
         description: "API for managing library members, book inventory, authors, and loans."
     },
-    host: "localhost:5000",
-    schemes: ["http", "https"],
     tags: [
         {
             name: "authors",
