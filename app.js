@@ -4,6 +4,8 @@ const app = express();
 require("dotenv").config();
 const morgan = require("morgan");
 const connectDB = require("./database/db");
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = require("./swagger.json");       
 
 connectDB();
 
@@ -19,6 +21,7 @@ app.use(express.urlencoded({ extended: true }))
         res.setHeader("Access-Control-Allow-Origin", "*");
         next();
     })
+    .use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument))  
     .use("/", require("./routes"));
 
 process.on("uncaughtException", (err, origin) => {
