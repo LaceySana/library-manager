@@ -1,7 +1,7 @@
 const router = require("express").Router();
 
+// Swagger Documentation Route
 router.use("/", require("./swagger"));
-
 
 //Author Routes
 router.use("/authors", require("./authors"));
