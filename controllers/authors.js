@@ -10,8 +10,8 @@ const authorController = {};
 // o Biography (Optional)
 
 authorController.get = async (req, res) => {
-    //#swagger.tags = ['authors']
-    //#swagger.description = 'Get an author by ID.'
+    // #swagger.tags = ['authors']
+    // #swagger.description = 'Get an author by ID.'
 
     try {
         const author = await authorsModel.findById(req.params.id);
@@ -27,8 +27,8 @@ authorController.get = async (req, res) => {
 };
 
 authorController.getAll = async (req, res) => {
-    //#swagger.tags = ['authors']
-    //#swagger.description = 'Get all the authors in the collection.'
+    // #swagger.tags = ['authors']
+    // #swagger.description = 'Get all the authors in the collection.'
 
     try {
         const authors = await authorsModel.find({});
@@ -123,8 +123,8 @@ authorController.update = async (req, res) => {
 };
 
 authorController.delete = async (req, res) => {
-    //#swagger.tags = ['authors']
-    //#swagger.description = 'Delete an existing author by ID.'
+    // #swagger.tags = ['authors']
+    // #swagger.description = 'Delete an existing author by ID.'
 
     try {
         const result = await authorsModel.findByIdAndDelete(req.params.id);
