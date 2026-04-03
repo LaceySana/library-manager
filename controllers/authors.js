@@ -10,9 +10,6 @@ const authorController = {};
 // o Biography (Optional)
 
 authorController.get = async (req, res) => {
-    //#swagger.tags = ['authors']
-    //#swagger.description = 'Get an author by ID.'
-
     try {
         const author = await authorsModel.findById(req.params.id);
 
@@ -27,9 +24,6 @@ authorController.get = async (req, res) => {
 };
 
 authorController.getAll = async (req, res) => {
-    //#swagger.tags = ['authors']
-    //#swagger.description = 'Get all the authors in the collection.'
-
     try {
         const authors = await authorsModel.find({});
         res.status(200).json(authors);
@@ -39,25 +33,6 @@ authorController.getAll = async (req, res) => {
 };
 
 authorController.create = async (req, res) => {
-    /* #swagger.tags = ['authors']
-       #swagger.description = 'Create a new author.'
-       #swagger.requestBody = {
-         required: true,
-         content: {
-           "application/json": {
-             schema: {
-               $firstName: "Jane",
-               $lastName: "Smith",
-               $nationality: "American",
-               $dob: "1980-01-01",
-               dod: "2040-01-01",
-               biography: "Jane Smith is a renowned author known for her fantasy novels."
-             }
-           }
-         }
-       }
-    */
-
     try {
         const author = {
             firstName: req.body.firstName,
@@ -76,25 +51,6 @@ authorController.create = async (req, res) => {
 };
 
 authorController.update = async (req, res) => {
-    /* #swagger.tags = ['authors']
-       #swagger.description = 'Update an existing author by ID.'
-       #swagger.requestBody = {
-         required: true,
-         content: {
-           "application/json": {
-             schema: {
-               firstName: "Jane",
-               lastName: "Smith",
-               nationality: "American",
-               dob: "1980-01-01",
-               dod: "2040-01-01",
-               biography: "Jane Smith is a renowned author known for her fantasy novels."
-             }
-           }
-         }
-       }
-    */
-
     try {
         const updatedAuthor = await authorsModel.findByIdAndUpdate(
             req.params.id,
@@ -123,9 +79,6 @@ authorController.update = async (req, res) => {
 };
 
 authorController.delete = async (req, res) => {
-    //#swagger.tags = ['authors']
-    //#swagger.description = 'Delete an existing author by ID.'
-
     try {
         const result = await authorsModel.findByIdAndDelete(req.params.id);
 

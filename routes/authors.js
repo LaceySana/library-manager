@@ -6,11 +6,73 @@ const router = require("express").Router();
 const { authorsController } = require("../controllers");
 
 // Get all authors
-router.get("/", authorsController.getAll);
-router.get("/:id", authorsController.get);
+router.get(
+    "/",
+    /* #swagger.tags = ['authors']
+       #swagger.description = 'Get all the authors in the collection.'
+    */
+    authorsController.getAll
+);
+router.get(
+    "/:id",
+    /* #swagger.tags = ['authors']
+       #swagger.description = 'Get an author by ID.'
+    */
+    authorsController.get
+);
 
-router.post("/", /*validation.createRules, validateAuthor,*/ authorsController.create);
-router.put("/:id", /*validation.updateRules, validateAuthor,*/ authorsController.update);
-router.delete("/:id", authorsController.delete);
+router.post(
+    "/",
+    /* #swagger.tags = ['authors']
+       #swagger.description = 'Create a new author.'
+       #swagger.requestBody = {
+         required: true,
+         content: {
+           "application/json": {
+             schema: {
+               $firstName: "Jane",
+               $lastName: "Smith",
+               $nationality: "American",
+               $dob: "1980-01-01",
+               dod: "2040-01-01",
+               biography: "Jane Smith is a renowned author known for her fantasy novels."
+             }
+           }
+         }
+       }
+    */
+    /*validation.createRules, validateAuthor, */
+    authorsController.create
+);
+router.put(
+    "/:id",
+    /* #swagger.tags = ['authors']
+       #swagger.description = 'Update an existing author by ID.'
+       #swagger.requestBody = {
+            required: true,
+            content: {
+            "application/json": {
+                schema: {
+                    firstName: "Jane",
+                    lastName: "Smith",
+                    nationality: "American",
+                    dob: "1980-01-01",
+                    dod: "2040-01-01",
+                    biography: "Jane Smith is a renowned author known for her fantasy novels."
+                }
+            }
+        }
+    }
+    */
+    /*validation.updateRules, validateAuthor, */
+    authorsController.update
+);
+router.delete(
+    "/:id",
+    /* #swagger.tags = ['authors']
+       #swagger.description = 'Delete an existing author by ID.'
+    */
+    authorsController.delete
+);
 
 module.exports = router;
