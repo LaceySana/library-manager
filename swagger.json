@@ -5,7 +5,7 @@
     "description": "API for managing library members, book inventory, authors, and loans.",
     "version": "1.0.0"
   },
-  "host": "localhost:5000",
+  "host": "localhost:3000",
   "basePath": "/",
   "tags": [
     {
@@ -18,21 +18,10 @@
     }
   ],
   "schemes": [
-    "http",
-    "https"
+    "http"
   ],
   "paths": {
-    "/": {
-      "get": {
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/authors/": {
+    "/api-docs": {
       "get": {
         "description": "",
         "responses": {
@@ -40,9 +29,67 @@
             "description": ""
           }
         }
+      }
+    },
+    "/authors/": {
+      "get": {
+        "tags": [
+          "authors"
+        ],
+        "description": "Get all the authors in the collection.",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
       },
       "post": {
-        "description": "",
+        "tags": [
+          "authors"
+        ],
+        "description": "Create a new author.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Author data",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "firstName": {
+                  "type": "string",
+                  "example": "Jane"
+                },
+                "lastName": {
+                  "type": "string",
+                  "example": "Smith"
+                },
+                "nationality": {
+                  "type": "string",
+                  "example": "American"
+                },
+                "dob": {
+                  "type": "string",
+                  "example": "1980-01-01"
+                },
+                "dod": {
+                  "type": "string",
+                  "example": "2040-01-01"
+                },
+                "biography": {
+                  "type": "string",
+                  "example": "Jane Smith is a renowned author known for her fantasy novels."
+                }
+              },
+              "required": [
+                "firstName",
+                "lastName",
+                "dob"
+              ]
+            }
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
@@ -52,13 +99,17 @@
     },
     "/authors/{id}": {
       "get": {
-        "description": "",
+        "tags": [
+          "authors"
+        ],
+        "description": "Get an author by ID.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "Author ID"
           }
         ],
         "responses": {
@@ -68,13 +119,57 @@
         }
       },
       "put": {
-        "description": "",
+        "tags": [
+          "authors"
+        ],
+        "description": "Update an existing author by ID.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "Author ID"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Author data",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "firstName": {
+                  "type": "string",
+                  "example": "Jane"
+                },
+                "lastName": {
+                  "type": "string",
+                  "example": "Smith"
+                },
+                "nationality": {
+                  "type": "string",
+                  "example": "American"
+                },
+                "dob": {
+                  "type": "string",
+                  "example": "1980-01-01"
+                },
+                "dod": {
+                  "type": "string",
+                  "example": "2040-01-01"
+                },
+                "biography": {
+                  "type": "string",
+                  "example": "Jane Smith is a renowned author known for her fantasy novels."
+                }
+              },
+              "required": [
+                "firstName",
+                "lastName",
+                "dob"
+              ]
+            }
           }
         ],
         "responses": {
@@ -84,13 +179,17 @@
         }
       },
       "delete": {
-        "description": "",
+        "tags": [
+          "authors"
+        ],
+        "description": "Delete an existing author by ID.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "Author ID"
           }
         ],
         "responses": {
@@ -107,11 +206,8 @@
         ],
         "description": "Get all books.",
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
           }
         }
       },
@@ -124,46 +220,61 @@
           {
             "name": "body",
             "in": "body",
+            "description": "Book data",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
                 "title": {
-                  "example": "any"
+                  "type": "string",
+                  "example": ""
                 },
                 "authorId": {
-                  "example": "any"
+                  "type": "string",
+                  "example": ""
                 },
                 "publishYear": {
-                  "example": "any"
+                  "type": "string",
+                  "example": ""
                 },
                 "isbn": {
-                  "example": "any"
+                  "type": "string",
+                  "example": ""
                 },
                 "genre": {
-                  "example": "any"
+                  "type": "string",
+                  "example": ""
                 },
                 "image": {
-                  "example": "any"
+                  "type": "string",
+                  "example": ""
                 },
                 "awards": {
-                  "example": "any"
+                  "type": "string",
+                  "example": ""
                 },
                 "copiesOwned": {
-                  "example": "any"
+                  "type": "string",
+                  "example": ""
                 },
                 "copiesAvailable": {
-                  "example": "any"
+                  "type": "string",
+                  "example": ""
                 }
-              }
+              },
+              "required": [
+                "title",
+                "authorId",
+                "isbn",
+                "copiesOwned",
+                "copiesAvailable"
+              ]
             }
           }
         ],
         "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
           }
         }
       }
@@ -179,18 +290,13 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "Book ID"
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
           }
         }
       },
@@ -204,7 +310,8 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "Book ID"
           },
           {
             "name": "body",
@@ -213,45 +320,55 @@
               "type": "object",
               "properties": {
                 "title": {
-                  "example": "any"
+                  "type": "string",
+                  "example": ""
                 },
                 "authorId": {
-                  "example": "any"
+                  "type": "string",
+                  "example": ""
                 },
                 "publishYear": {
-                  "example": "any"
+                  "type": "string",
+                  "example": ""
                 },
                 "isbn": {
-                  "example": "any"
+                  "type": "string",
+                  "example": ""
                 },
                 "genre": {
-                  "example": "any"
+                  "type": "string",
+                  "example": ""
                 },
                 "image": {
-                  "example": "any"
+                  "type": "string",
+                  "example": ""
                 },
                 "awards": {
-                  "example": "any"
+                  "type": "string",
+                  "example": ""
                 },
                 "copiesOwned": {
-                  "example": "any"
+                  "type": "string",
+                  "example": ""
                 },
                 "copiesAvailable": {
-                  "example": "any"
+                  "type": "string",
+                  "example": ""
                 }
-              }
+              },
+              "required": [
+                "title",
+                "authorId",
+                "isbn",
+                "copiesOwned",
+                "copiesAvailable"
+              ]
             }
           }
         ],
         "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
           }
         }
       },
@@ -265,15 +382,13 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "Book ID"
           }
         ],
         "responses": {
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
           }
         }
       }
