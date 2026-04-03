@@ -2,18 +2,12 @@
 const express = require("express");
 const app = express();
 require("dotenv").config();
-const morgan = require("morgan");
-const connectDB = require("./database/db");
-const swaggerUi = require("swagger-ui-express");
-const swaggerDocument = require("./swagger.json");       
-
-connectDB();
+const mongodb = require("./database/db");    
+const bodyParser = require("body-parser");  
 
 const port = process.env.PORT || 5000;
 
-if (process.env.NODE_ENV === "development") {
-    app.use(morgan("dev"));
-}
+app.use(bodyParser.json());
 
 app.use(express.urlencoded({ extended: true }))
     .use(express.json())
@@ -21,11 +15,26 @@ app.use(express.urlencoded({ extended: true }))
         res.setHeader("Access-Control-Allow-Origin", "*");
         next();
     })
-    .use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument))  
     .use("/", require("./routes"));
 
+
 process.on("uncaughtException", (err, origin) => {
-    console.log(process.stderr.fd, `Caught exception: ${err}\n` + `Exception origin: ${origin}`);
+	console.error(`Caught exception: ${err}\nException origin: ${origin}`);
+	process.exit(1);
 });
 
-app.listen(port, console.log(`Web server is listening at http://localhost:${port}`));
+mongodb.initDb((err) => {
+	if (err) {
+		console.error("Database initialization failed:", err);
+		console.warn(
+			"Starting server without a database connection (development mode).",
+		);
+		app.listen(port, () => {
+			console.log(`Server is running on http://localhost:${port}`);
+		});
+	} else {
+		app.listen(port, () => {
+			console.log(`Server is running on http://localhost:${port}`);
+		});
+	}
+});
