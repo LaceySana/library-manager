@@ -65,7 +65,7 @@ bookController.update = async (req, res) => {
         if (!updatedBook) {
             return res.status(404).json("No matching book found.");
         }
-        res.status(201).json(updatedBook);
+        res.status(200).json(updatedBook); // Fixed: was 201, should be 200 for updates
     } catch (error) {
         res.status(500).json({ message: "Error updating book.", error });
     }
@@ -78,8 +78,10 @@ bookController.delete = async (req, res) => {
         if (!result) {
             return res.status(404).json("No matching book found.");
         }
+
+        res.status(200).json({ message: "Book deleted successfully." }); // Fixed: was missing response
     } catch (error) {
-        res.status(500).json({ message: "Error updating book.", error });
+        res.status(500).json({ message: "Error deleting book.", error }); // Fixed: was saying "updating" in error message
     }
 };
 
