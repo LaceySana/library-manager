@@ -110,4 +110,16 @@ router.delete(
     authorsController.delete
 );
 
+// DEBUG ROUTE (shows ALL authors including soft deleted)
+router.get("/debug/all", async (req, res) => {
+    try {
+        const authorsModel = require("../models/authors");
+        const authors = await authorsModel.find({});
+
+        res.status(200).json(authors);
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching debug data", error });
+    }
+});
+
 module.exports = router;
