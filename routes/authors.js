@@ -1,9 +1,25 @@
 const router = require("express").Router();
-
-// const validation = require('./validation/authors');
-// const validateAuthor = require('./middleware/validate');
-
 const { authorsController } = require("../controllers");
+const validate = require("../middleware/validate");
+
+// Validation rules
+const authorRules = {
+    firstName: "required|string",
+    lastName: "required|string",
+    dob: "required|string"
+};
+
+// UPDATE rules
+const updateAuthorRules = {
+    firstName: "string",
+    lastName: "string",
+    nationality: "string",
+    dob: "string",
+    dod: "string",
+    biography: "string"
+};
+
+//const { authorsController } = require("../controllers");
 
 // Get all authors
 router.get(
@@ -30,6 +46,7 @@ router.get(
 
 router.post(
     "/",
+    validate(authorRules),
     /* #swagger.tags = ['authors']
        #swagger.description = 'Create a new author.'
        #swagger.parameters['body'] = {
@@ -52,6 +69,7 @@ router.post(
 
 router.put(
     "/:id",
+    validate(updateAuthorRules),
     /* #swagger.tags = ['authors']
        #swagger.description = 'Update an existing author by ID.'
        #swagger.parameters['id'] = {

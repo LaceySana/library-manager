@@ -1,7 +1,26 @@
 const router = require("express").Router();
 const { booksController } = require("../controllers");
-// const validator = require("../middleware/validate");
+const validate = require("../middleware/validate");
 
+//Validation rules
+const bookRules = {
+    title: "required|string",
+    authorId: "required|string",
+    isbn: "required|string",
+    copiesOwned: "required|integer|min:0",
+    copiesAvailable: "required|integer|min:0"
+};
+
+// UPDATE rules (optional fields allowed)
+const updateBookRules = {
+    title: "string",
+    authorId: "string",
+    isbn: "string",
+    copiesOwned: "integer|min:0",
+    copiesAvailable: "integer|min:0"
+};
+
+//GET ALL
 router.get(
     "/",
     /* #swagger.description = 'Get all books.'
@@ -26,6 +45,7 @@ router.get(
 
 router.post(
     "/",
+     validate(bookRules),
     /* #swagger.description = "Create a new book."
        #swagger.tags = ["books"]
        #swagger.parameters['body'] = {
@@ -51,6 +71,7 @@ router.post(
 
 router.put(
     "/:id",
+     validate(updateBookRules),
     /* #swagger.description = "Update book by ID."
        #swagger.tags = ["books"]
        #swagger.parameters['id'] = {
