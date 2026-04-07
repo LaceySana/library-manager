@@ -1,10 +1,10 @@
-// REQUIRE STATEMENTS
 const express = require("express");
 const app = express();
 require("dotenv").config();
 const morgan = require("morgan");
 const connectDB = require("./database/db");
 const cors = require("cors");
+const path = require("path");
 
 connectDB();
 
@@ -18,18 +18,21 @@ if (process.env.NODE_ENV === "development") {
     app.use(morgan("dev"));
 }
 
-//Root route for testing
+// ✅ Serve swagger.json properly
+app.use("/swagger.json", express.static(path.join(__dirname, "swagger.json")));
+
+// ✅ Swagger UI (make sure this exists somewhere)
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = require("./swagger.json");
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+// Root route
 app.get("/", (req, res) => {
     res.send("API is running...");
 });
-//routes
-app.use("/", require("./routes"));
 
-    /*removing this block to reduce redundancy, keeping just app.use(cors)*/
-   // .use((req, res, next) => {
-     //   res.setHeader("Access-Control-Allow-Origin", "*");
-       // next();
-    //})
+// Routes
+app.use("/", require("./routes"));
 
 process.on("uncaughtException", (err, origin) => {
     console.log(`Caught exception: ${err}\nException origin: ${origin}`);
