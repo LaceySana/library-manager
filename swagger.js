@@ -5,8 +5,11 @@ const doc = {
         title: "Library Manager API",
         description: "API for managing library members, book inventory, authors, and loans."
     },
-    host: process.env.RENDER_EXTERNAL_URL?.replace(/^https?:\/\//, "") || "localhost:3000",
-    schemes: process.env.RENDER_EXTERNAL_URL ? ["https"] : ["http"],
+   host: process.env.RENDER_EXTERNAL_URL
+  ? process.env.RENDER_EXTERNAL_URL.replace(/^https?:\/\//, "")
+  : `localhost:${process.env.PORT || 5000}`,
+
+schemes: process.env.RENDER_EXTERNAL_URL ? ["https"] : ["http"],
 
     basePath: "/", 
 
