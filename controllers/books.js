@@ -86,9 +86,16 @@ bookController.delete = async (req, res) => {
             return res.status(404).json("No matching book found.");
         }
 
-        res.status(200).json({ message: "Book soft deleted successfully." });
+        return res.status(200).json({
+            message: "Book soft deleted successfully.",
+            data: result
+        });
+
     } catch (error) {
-        res.status(500).json({ message: "Error deleting book.", error });
+        return res.status(500).json({
+            message: "Error deleting book.",
+            error: error.message
+        });
     }
 };
 

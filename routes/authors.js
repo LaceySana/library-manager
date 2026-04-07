@@ -19,7 +19,22 @@ const updateAuthorRules = {
     biography: "string"
 };
 
-//const { authorsController } = require("../controllers");
+router.get(
+    "/debug/all",
+    /* #swagger.tags = ['debug']
+       #swagger.description = 'Get ALL authors including soft deleted (debug only)'
+    */
+    async (req, res) => {
+        try {
+            const authorsModel = require("../models/authors");
+            const authors = await authorsModel.find({});
+
+            res.status(200).json(authors);
+        } catch (error) {
+            res.status(500).json({ message: "Error fetching debug data", error });
+        }
+    }
+);
 
 // Get all authors
 router.get(
@@ -109,22 +124,4 @@ router.delete(
     */
     authorsController.delete
 );
-
-router.get(
-    "/debug/all",
-    /* #swagger.tags = ['debug']
-       #swagger.description = 'Get ALL authors including soft deleted (debug only)'
-    */
-    async (req, res) => {
-        try {
-            const authorsModel = require("../models/authors");
-            const authors = await authorsModel.find({});
-
-            res.status(200).json(authors);
-        } catch (error) {
-            res.status(500).json({ message: "Error fetching debug data", error });
-        }
-    }
-);
-
 module.exports = router;
