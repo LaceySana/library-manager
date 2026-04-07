@@ -114,14 +114,20 @@ router.delete(
 );
 
 // DEBUG ROUTE (shows ALL books including soft deleted)
-router.get("/debug/all", async (req, res) => {
-    try {
-        const booksModel = require("../models/books");
-        const books = await booksModel.find({}); // no filter
-
-        res.status(200).json(books);
-    } catch (error) {
-        res.status(500).json({ message: "Error fetching debug data", error });
+router.get(
+    "/debug/all",
+    /* #swagger.tags = ['debug']
+       #swagger.description = 'Get ALL books including soft deleted (debug only)'
+    */
+    async (req, res) => {
+        try {
+            const booksModel = require("../models/books");
+            const books = await booksModel.find({});
+            res.status(200).json(books);
+        } catch (error) {
+            res.status(500).json({ message: "Error fetching debug data", error });
+        }
     }
-});
+);
+
 module.exports = router;

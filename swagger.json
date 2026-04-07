@@ -199,6 +199,22 @@
         }
       }
     },
+    "/authors/debug/all": {
+      "get": {
+        "tags": [
+          "debug"
+        ],
+        "description": "Get ALL authors including soft deleted (debug only)",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/books/": {
       "get": {
         "tags": [
@@ -389,6 +405,22 @@
         "responses": {
           "default": {
             "description": ""
+          }
+        }
+      }
+    },
+    "/books/debug/all": {
+      "get": {
+        "tags": [
+          "debug"
+        ],
+        "description": "Get ALL books including soft deleted (debug only)",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
