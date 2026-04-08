@@ -12,11 +12,11 @@ bookController.getAll = async (req, res) => {
 
 bookController.get = async (req, res) => {
     try {
-       const book = await booksModel.findOne({
-        _id: req.params.id,
-        deletedAt: null
-}); 
-       if (!book) {
+        const book = await booksModel.findOne({
+            _id: req.params.id,
+            deletedAt: null
+        });
+        if (!book) {
             return res.status(404).json("No matching book found.");
         }
         res.status(200).json(book);
@@ -90,7 +90,6 @@ bookController.delete = async (req, res) => {
             message: "Book soft deleted successfully.",
             data: result
         });
-
     } catch (error) {
         return res.status(500).json({
             message: "Error deleting book.",

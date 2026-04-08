@@ -1,3 +1,4 @@
+require("dotenv").config();
 const swaggerAutogen = require("swagger-autogen")();
 
 const doc = {
@@ -5,13 +6,13 @@ const doc = {
         title: "Library Manager API",
         description: "API for managing library members, book inventory, authors, and loans."
     },
-   host: process.env.RENDER_EXTERNAL_URL
-  ? process.env.RENDER_EXTERNAL_URL.replace(/^https?:\/\//, "")
-  : `localhost:${process.env.PORT || 5000}`,
+    host: process.env.RENDER_EXTERNAL_URL
+        ? process.env.RENDER_EXTERNAL_URL.replace(/^https?:\/\//, "")
+        : `localhost:${process.env.PORT || 5000}`,
 
-schemes: process.env.RENDER_EXTERNAL_URL ? ["https"] : ["http"],
+    schemes: process.env.RENDER_EXTERNAL_URL ? ["https"] : ["http"],
 
-    basePath: "/", 
+    basePath: "/",
 
     tags: [
         {
@@ -23,9 +24,9 @@ schemes: process.env.RENDER_EXTERNAL_URL ? ["https"] : ["http"],
             description: "Endpoints for managing books"
         },
         {
-        name: "debug",
-        description: "Debug endpoints (includes soft deleted data)"
-    }
+            name: "debug",
+            description: "Debug endpoints (includes soft deleted data)"
+        }
     ]
 };
 

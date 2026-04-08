@@ -36,8 +36,8 @@ const bookSchema = new mongoose.Schema({
         required: true,
         min: 0
     },
-    
-//soft delete feature
+
+    //soft delete feature
     deletedAt: {
         type: Date,
         default: null
