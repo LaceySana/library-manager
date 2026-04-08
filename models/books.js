@@ -15,7 +15,7 @@ const bookSchema = new mongoose.Schema({
     isbn: {
         type: String,
         required: true,
-        unigue: true
+        unique: true
     },
     genre: {
         type: String
@@ -35,6 +35,12 @@ const bookSchema = new mongoose.Schema({
         type: Number,
         required: true,
         min: 0
+    },
+    
+//soft delete feature
+    deletedAt: {
+        type: Date,
+        default: null
     }
 });
 

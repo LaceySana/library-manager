@@ -1,9 +1,40 @@
 const router = require("express").Router();
-
-// const validation = require('./validation/authors');
-// const validateAuthor = require('./middleware/validate');
-
 const { authorsController } = require("../controllers");
+const validate = require("../middleware/validate");
+
+// Validation rules
+const authorRules = {
+    firstName: "required|string",
+    lastName: "required|string",
+    dob: "required|string"
+};
+
+// UPDATE rules
+const updateAuthorRules = {
+    firstName: "string",
+    lastName: "string",
+    nationality: "string",
+    dob: "string",
+    dod: "string",
+    biography: "string"
+};
+
+router.get(
+    "/debug/all",
+    /* #swagger.tags = ['debug']
+       #swagger.description = 'Get ALL authors including soft deleted (debug only)'
+    */
+    async (req, res) => {
+        try {
+            const authorsModel = require("../models/authors");
+            const authors = await authorsModel.find({});
+
+            res.status(200).json(authors);
+        } catch (error) {
+            res.status(500).json({ message: "Error fetching debug data", error });
+        }
+    }
+);
 
 // Get all authors
 router.get(
@@ -30,6 +61,7 @@ router.get(
 
 router.post(
     "/",
+    validate(authorRules),
     /* #swagger.tags = ['authors']
        #swagger.description = 'Create a new author.'
        #swagger.parameters['body'] = {
@@ -52,6 +84,7 @@ router.post(
 
 router.put(
     "/:id",
+    validate(updateAuthorRules),
     /* #swagger.tags = ['authors']
        #swagger.description = 'Update an existing author by ID.'
        #swagger.parameters['id'] = {
@@ -91,5 +124,4 @@ router.delete(
     */
     authorsController.delete
 );
-
 module.exports = router;
