@@ -6,5 +6,4 @@ router.use("/", require("./swagger"));
 router.use("/authors", require("./authors"));
 // Book Routes
 router.use("/books", require("./books"));
-
 module.exports = router;
