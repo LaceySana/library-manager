@@ -1,433 +1,399 @@
 {
-  "swagger": "2.0",
-  "info": {
-    "title": "Library Manager API",
-    "description": "API for managing library members, book inventory, authors, and loans.",
-    "version": "1.0.0"
-  },
-  "host": "localhost:3000",
-  "basePath": "/",
-  "tags": [
-    {
-      "name": "authors",
-      "description": "Endpoints for managing authors"
+    "swagger": "2.0",
+    "info": {
+        "title": "Library Manager API",
+        "description": "API for managing library members, book inventory, authors, and loans.",
+        "version": "1.0.0"
     },
-    {
-      "name": "books",
-      "description": "Endpoints for managing books"
-    },
-    {
-      "name": "debug",
-      "description": "Debug endpoints (includes soft deleted data)"
+    "host": "localhost:3000",
+    "basePath": "/",
+    "tags": [
+        {
+            "name": "authors",
+            "description": "Endpoints for managing authors"
+        },
+        {
+            "name": "books",
+            "description": "Endpoints for managing books"
+        },
+        {
+            "name": "debug",
+            "description": "Debug endpoints (includes soft deleted data)"
+        }
+    ],
+    "schemes": ["http"],
+    "paths": {
+        "/api-docs": {
+            "get": {
+                "description": "",
+                "responses": {
+                    "default": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/authors/debug/all": {
+            "get": {
+                "tags": ["debug"],
+                "description": "Get ALL authors including soft deleted (debug only)",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/authors/": {
+            "get": {
+                "tags": ["authors"],
+                "description": "Get all the authors in the collection.",
+                "responses": {
+                    "default": {
+                        "description": ""
+                    }
+                }
+            },
+            "post": {
+                "tags": ["authors"],
+                "description": "Create a new author.",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Author data",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "firstName": {
+                                    "type": "string",
+                                    "example": "Jane"
+                                },
+                                "lastName": {
+                                    "type": "string",
+                                    "example": "Smith"
+                                },
+                                "nationality": {
+                                    "type": "string",
+                                    "example": "American"
+                                },
+                                "dob": {
+                                    "type": "string",
+                                    "example": "1980-01-01"
+                                },
+                                "dod": {
+                                    "type": "string",
+                                    "example": "2040-01-01"
+                                },
+                                "biography": {
+                                    "type": "string",
+                                    "example": "Jane Smith is a renowned author known for her fantasy novels."
+                                }
+                            },
+                            "required": ["firstName", "lastName", "dob"]
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/authors/{id}": {
+            "get": {
+                "tags": ["authors"],
+                "description": "Get an author by ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "description": "Author ID"
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": ""
+                    }
+                }
+            },
+            "put": {
+                "tags": ["authors"],
+                "description": "Update an existing author by ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "description": "Author ID"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Author data",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "firstName": {
+                                    "type": "string",
+                                    "example": "Jane"
+                                },
+                                "lastName": {
+                                    "type": "string",
+                                    "example": "Smith"
+                                },
+                                "nationality": {
+                                    "type": "string",
+                                    "example": "American"
+                                },
+                                "dob": {
+                                    "type": "string",
+                                    "example": "1980-01-01"
+                                },
+                                "dod": {
+                                    "type": "string",
+                                    "example": "2040-01-01"
+                                },
+                                "biography": {
+                                    "type": "string",
+                                    "example": "Jane Smith is a renowned author known for her fantasy novels."
+                                }
+                            },
+                            "required": ["firstName", "lastName", "dob"]
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": ""
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["authors"],
+                "description": "Delete an existing author by ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "description": "Author ID"
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/books/debug/all": {
+            "get": {
+                "tags": ["debug"],
+                "description": "Get ALL books including soft deleted (debug only)",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/books/": {
+            "get": {
+                "tags": ["books"],
+                "description": "Get all books.",
+                "responses": {
+                    "default": {
+                        "description": ""
+                    }
+                }
+            },
+            "post": {
+                "tags": ["books"],
+                "description": "Create a new book.",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Book data",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "title": {
+                                    "type": "string",
+                                    "example": ""
+                                },
+                                "authorId": {
+                                    "type": "string",
+                                    "example": ""
+                                },
+                                "publishYear": {
+                                    "type": "string",
+                                    "example": ""
+                                },
+                                "isbn": {
+                                    "type": "string",
+                                    "example": ""
+                                },
+                                "genre": {
+                                    "type": "string",
+                                    "example": ""
+                                },
+                                "image": {
+                                    "type": "string",
+                                    "example": ""
+                                },
+                                "awards": {
+                                    "type": "string",
+                                    "example": ""
+                                },
+                                "copiesOwned": {
+                                    "type": "string",
+                                    "example": ""
+                                },
+                                "copiesAvailable": {
+                                    "type": "string",
+                                    "example": ""
+                                }
+                            },
+                            "required": [
+                                "title",
+                                "authorId",
+                                "isbn",
+                                "copiesOwned",
+                                "copiesAvailable"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/books/{id}": {
+            "get": {
+                "tags": ["books"],
+                "description": "Get one book by ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "description": "Book ID"
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": ""
+                    }
+                }
+            },
+            "put": {
+                "tags": ["books"],
+                "description": "Update book by ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "description": "Book ID"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "title": {
+                                    "type": "string",
+                                    "example": ""
+                                },
+                                "authorId": {
+                                    "type": "string",
+                                    "example": ""
+                                },
+                                "publishYear": {
+                                    "type": "string",
+                                    "example": ""
+                                },
+                                "isbn": {
+                                    "type": "string",
+                                    "example": ""
+                                },
+                                "genre": {
+                                    "type": "string",
+                                    "example": ""
+                                },
+                                "image": {
+                                    "type": "string",
+                                    "example": ""
+                                },
+                                "awards": {
+                                    "type": "string",
+                                    "example": ""
+                                },
+                                "copiesOwned": {
+                                    "type": "string",
+                                    "example": ""
+                                },
+                                "copiesAvailable": {
+                                    "type": "string",
+                                    "example": ""
+                                }
+                            },
+                            "required": [
+                                "title",
+                                "authorId",
+                                "isbn",
+                                "copiesOwned",
+                                "copiesAvailable"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": ""
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["books"],
+                "description": "Delete book by ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "description": "Book ID"
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": ""
+                    }
+                }
+            }
+        }
     }
-  ],
-  "schemes": [
-    "http"
-  ],
-  "paths": {
-    "/api-docs": {
-      "get": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/authors/debug/all": {
-      "get": {
-        "tags": [
-          "debug"
-        ],
-        "description": "Get ALL authors including soft deleted (debug only)",
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/authors/": {
-      "get": {
-        "tags": [
-          "authors"
-        ],
-        "description": "Get all the authors in the collection.",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "authors"
-        ],
-        "description": "Create a new author.",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "description": "Author data",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "firstName": {
-                  "type": "string",
-                  "example": "Jane"
-                },
-                "lastName": {
-                  "type": "string",
-                  "example": "Smith"
-                },
-                "nationality": {
-                  "type": "string",
-                  "example": "American"
-                },
-                "dob": {
-                  "type": "string",
-                  "example": "1980-01-01"
-                },
-                "dod": {
-                  "type": "string",
-                  "example": "2040-01-01"
-                },
-                "biography": {
-                  "type": "string",
-                  "example": "Jane Smith is a renowned author known for her fantasy novels."
-                }
-              },
-              "required": [
-                "firstName",
-                "lastName",
-                "dob"
-              ]
-            }
-          }
-        ],
-        "responses": {
-          "400": {
-            "description": "Bad Request"
-          }
-        }
-      }
-    },
-    "/authors/{id}": {
-      "get": {
-        "tags": [
-          "authors"
-        ],
-        "description": "Get an author by ID.",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "description": "Author ID"
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "authors"
-        ],
-        "description": "Update an existing author by ID.",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "description": "Author ID"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "description": "Author data",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "firstName": {
-                  "type": "string",
-                  "example": "Jane"
-                },
-                "lastName": {
-                  "type": "string",
-                  "example": "Smith"
-                },
-                "nationality": {
-                  "type": "string",
-                  "example": "American"
-                },
-                "dob": {
-                  "type": "string",
-                  "example": "1980-01-01"
-                },
-                "dod": {
-                  "type": "string",
-                  "example": "2040-01-01"
-                },
-                "biography": {
-                  "type": "string",
-                  "example": "Jane Smith is a renowned author known for her fantasy novels."
-                }
-              },
-              "required": [
-                "firstName",
-                "lastName",
-                "dob"
-              ]
-            }
-          }
-        ],
-        "responses": {
-          "400": {
-            "description": "Bad Request"
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "authors"
-        ],
-        "description": "Delete an existing author by ID.",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "description": "Author ID"
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/books/debug/all": {
-      "get": {
-        "tags": [
-          "debug"
-        ],
-        "description": "Get ALL books including soft deleted (debug only)",
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/books/": {
-      "get": {
-        "tags": [
-          "books"
-        ],
-        "description": "Get all books.",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "books"
-        ],
-        "description": "Create a new book.",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "description": "Book data",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "title": {
-                  "type": "string",
-                  "example": ""
-                },
-                "authorId": {
-                  "type": "string",
-                  "example": ""
-                },
-                "publishYear": {
-                  "type": "string",
-                  "example": ""
-                },
-                "isbn": {
-                  "type": "string",
-                  "example": ""
-                },
-                "genre": {
-                  "type": "string",
-                  "example": ""
-                },
-                "image": {
-                  "type": "string",
-                  "example": ""
-                },
-                "awards": {
-                  "type": "string",
-                  "example": ""
-                },
-                "copiesOwned": {
-                  "type": "string",
-                  "example": ""
-                },
-                "copiesAvailable": {
-                  "type": "string",
-                  "example": ""
-                }
-              },
-              "required": [
-                "title",
-                "authorId",
-                "isbn",
-                "copiesOwned",
-                "copiesAvailable"
-              ]
-            }
-          }
-        ],
-        "responses": {
-          "400": {
-            "description": "Bad Request"
-          }
-        }
-      }
-    },
-    "/books/{id}": {
-      "get": {
-        "tags": [
-          "books"
-        ],
-        "description": "Get one book by ID.",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "description": "Book ID"
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "books"
-        ],
-        "description": "Update book by ID.",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "description": "Book ID"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "title": {
-                  "type": "string",
-                  "example": ""
-                },
-                "authorId": {
-                  "type": "string",
-                  "example": ""
-                },
-                "publishYear": {
-                  "type": "string",
-                  "example": ""
-                },
-                "isbn": {
-                  "type": "string",
-                  "example": ""
-                },
-                "genre": {
-                  "type": "string",
-                  "example": ""
-                },
-                "image": {
-                  "type": "string",
-                  "example": ""
-                },
-                "awards": {
-                  "type": "string",
-                  "example": ""
-                },
-                "copiesOwned": {
-                  "type": "string",
-                  "example": ""
-                },
-                "copiesAvailable": {
-                  "type": "string",
-                  "example": ""
-                }
-              },
-              "required": [
-                "title",
-                "authorId",
-                "isbn",
-                "copiesOwned",
-                "copiesAvailable"
-              ]
-            }
-          }
-        ],
-        "responses": {
-          "400": {
-            "description": "Bad Request"
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "books"
-        ],
-        "description": "Delete book by ID.",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "description": "Book ID"
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    }
-  }
 }

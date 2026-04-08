@@ -36,5 +36,5 @@ process.on("uncaughtException", (err, origin) => {
 });
 
 app.listen(port, () => {
-    console.log(`Web server is listening at http://localhost:${port}`);
+    console.log(`\nWeb server is listening at \x1b[34mhttp://localhost:${port}\x1b[0m`);
 });
