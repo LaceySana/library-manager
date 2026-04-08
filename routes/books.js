@@ -62,7 +62,7 @@ router.get(
 
 router.post(
     "/",
-     validate(bookRules),
+    validate(bookRules),
     /* #swagger.description = "Create a new book."
        #swagger.tags = ["books"]
        #swagger.parameters['body'] = {
@@ -88,7 +88,7 @@ router.post(
 
 router.put(
     "/:id",
-     validate(updateBookRules),
+    validate(updateBookRules),
     /* #swagger.description = "Update book by ID."
        #swagger.tags = ["books"]
        #swagger.parameters['id'] = {
