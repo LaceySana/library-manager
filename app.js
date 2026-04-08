@@ -19,11 +19,23 @@ if (process.env.NODE_ENV === "development") {
 }
 
 // ✅ Serve swagger.json properly
-app.use("/swagger.json", express.static(path.join(__dirname, "swagger.json")));
+const fs = require("fs");
+const path = require("path");
+
+app.get("/swagger.json", (req, res) => {
+    const filePath = path.join(__dirname, "swagger.json");
+
+    if (!fs.existsSync(filePath)) {
+        return res.status(404).json({ message: "swagger.json not found" });
+    }
+
+    res.sendFile(filePath);
+});
 
 // ✅ Swagger UI (make sure this exists somewhere)
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./swagger.json");
+
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Root route
