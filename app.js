@@ -4,7 +4,6 @@ require("dotenv").config();
 const morgan = require("morgan");
 const connectDB = require("./database/db");
 const cors = require("cors");
-const path = require("path");
 
 connectDB();
 
@@ -18,21 +17,7 @@ if (process.env.NODE_ENV === "development") {
     app.use(morgan("dev"));
 }
 
-// ✅ Serve swagger.json properly
-const fs = require("fs");
-const path = require("path");
-
-app.get("/swagger.json", (req, res) => {
-    const filePath = path.join(__dirname, "swagger.json");
-
-    if (!fs.existsSync(filePath)) {
-        return res.status(404).json({ message: "swagger.json not found" });
-    }
-
-    res.sendFile(filePath);
-});
-
-// ✅ Swagger UI (make sure this exists somewhere)
+// ✅ Swagger UI ONLY (this is enough)
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./swagger.json");
 
