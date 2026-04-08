@@ -1,29 +1,12 @@
 const router = require("express").Router();
 const { authorsController } = require("../controllers");
-const validate = require("../middleware/validate");
-
-// Validation rules
-const authorRules = {
-    firstName: "required|string",
-    lastName: "required|string",
-    dob: "required|string"
-};
-
-// UPDATE rules
-const updateAuthorRules = {
-    firstName: "string",
-    lastName: "string",
-    nationality: "string",
-    dob: "string",
-    dod: "string",
-    biography: "string"
-};
+const { validateAuthor } = require("../validation");
 
 router.get(
     "/debug/all",
     /* #swagger.tags = ['debug']
-       #swagger.description = 'Get ALL authors including soft deleted (debug only)'
-    */
+  #swagger.description = 'Get ALL authors including soft deleted (debug only)'
+*/
     async (req, res) => {
         try {
             const authorsModel = require("../models/authors");
@@ -40,88 +23,86 @@ router.get(
 router.get(
     "/",
     /* #swagger.tags = ['authors']
-       #swagger.description = 'Get all the authors in the collection.'
-    */
+  #swagger.description = 'Get all the authors in the collection.'
+*/
     authorsController.getAll
 );
 
 router.get(
     "/:id",
     /* #swagger.tags = ['authors']
-       #swagger.description = 'Get an author by ID.'
-       #swagger.parameters['id'] = {
-          in: 'path',
-          description: 'Author ID',
-          required: true,
-          type: 'string'
-       }
-    */
+  #swagger.description = 'Get an author by ID.'
+  #swagger.parameters['id'] = {
+     in: 'path',
+     description: 'Author ID',
+     required: true,
+     type: 'string'
+  }
+*/
     authorsController.get
 );
 
 router.post(
     "/",
-    validate(authorRules),
+    validateAuthor.create,
     /* #swagger.tags = ['authors']
-       #swagger.description = 'Create a new author.'
-       #swagger.parameters['body'] = {
-          in: 'body',
-          description: 'Author data',
-          required: true,
-          schema: {
-             $firstName: "Jane",
-             $lastName: "Smith",
-             nationality: "American",
-             $dob: "1980-01-01",
-             dod: "2040-01-01",
-             biography: "Jane Smith is a renowned author known for her fantasy novels."
-          }
-       }
-    */
-    /*validation.createRules, validateAuthor, */
+  #swagger.description = 'Create a new author.'
+  #swagger.parameters['body'] = {
+     in: 'body',
+     description: 'Author data',
+     required: true,
+     schema: {
+        $firstName: "Jane",
+        $lastName: "Smith",
+        nationality: "American",
+        $dob: "1980-01-01",
+        dod: "2040-01-01",
+        biography: "Jane Smith is a renowned author known for her fantasy novels."
+     }
+  }
+*/
     authorsController.create
 );
 
 router.put(
     "/:id",
-    validate(updateAuthorRules),
+    validateAuthor.update,
     /* #swagger.tags = ['authors']
-       #swagger.description = 'Update an existing author by ID.'
-       #swagger.parameters['id'] = {
-          in: 'path',
-          description: 'Author ID',
-          required: true,
-          type: 'string'
-       }
-       #swagger.parameters['body'] = {
-          in: 'body',
-          description: 'Author data',
-          required: true,
-          schema: {
-             $firstName: "Jane",
-             $lastName: "Smith",
-             nationality: "American",
-             $dob: "1980-01-01",
-             dod: "2040-01-01",
-             biography: "Jane Smith is a renowned author known for her fantasy novels."
-          }
-       }
-    */
-    /*validation.updateRules, validateAuthor, */
+  #swagger.description = 'Update an existing author by ID.'
+  #swagger.parameters['id'] = {
+     in: 'path',
+     description: 'Author ID',
+     required: true,
+     type: 'string'
+  }
+  #swagger.parameters['body'] = {
+     in: 'body',
+     description: 'Author data',
+     required: true,
+     schema: {
+        $firstName: "Jane",
+        $lastName: "Smith",
+        nationality: "American",
+        $dob: "1980-01-01",
+        dod: "2040-01-01",
+        biography: "Jane Smith is a renowned author known for her fantasy novels."
+     }
+  }
+*/
     authorsController.update
 );
 
 router.delete(
     "/:id",
     /* #swagger.tags = ['authors']
-       #swagger.description = 'Delete an existing author by ID.'
-       #swagger.parameters['id'] = {
-          in: 'path',
-          description: 'Author ID',
-          required: true,
-          type: 'string'
-       }
-    */
+  #swagger.description = 'Delete an existing author by ID.'
+  #swagger.parameters['id'] = {
+     in: 'path',
+     description: 'Author ID',
+     required: true,
+     type: 'string'
+  }
+*/
     authorsController.delete
 );
 module.exports = router;

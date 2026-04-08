@@ -12,6 +12,11 @@ Util.mapProperties = (obj, callback) =>
         ])
     );
 
+Util.mapObjectValues = (value, callback) =>
+    Object.fromEntries(
+        Object.entries(value).map(([innerKey, innerValue]) => [innerKey, callback(innerValue)])
+    );
+
 Util.mapObject = (obj, callback) =>
     Object.fromEntries(
         Object.entries(obj).map(([key, value]) => [
@@ -22,5 +27,8 @@ Util.mapObject = (obj, callback) =>
 
 Util.mapObjects = (obj, callback) =>
     Util.mapObject(obj, (inner) => Util.mapProperties(inner, callback));
+
+Util.mapNestedObjectValues = (obj, callback) =>
+    Util.mapObject(obj, (inner) => Util.mapObjectValues(inner, callback));
 
 module.exports = Util;
