@@ -21,6 +21,12 @@ const authorSchema = new mongoose.Schema({
     },
     biography: {
         type: String
+    },
+
+    //soft delete feature
+    deletedAt: {
+        type: Date,
+        default: null
     }
 });
 

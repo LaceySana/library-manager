@@ -11,8 +11,10 @@ const authorController = {};
 
 authorController.get = async (req, res) => {
     try {
-        const author = await authorsModel.findById(req.params.id);
-
+        const author = await authorsModel.findOne({
+            _id: req.params.id,
+            deletedAt: null
+        });
         if (!author) {
             return res.status(404).json({ error: "Author not found" });
         }
@@ -25,7 +27,7 @@ authorController.get = async (req, res) => {
 
 authorController.getAll = async (req, res) => {
     try {
-        const authors = await authorsModel.find({});
+        const authors = await authorsModel.find({ deletedAt: null });
         res.status(200).json(authors);
     } catch {
         res.status(500).json({ error: "Failed to get authors" });
@@ -80,13 +82,17 @@ authorController.update = async (req, res) => {
 
 authorController.delete = async (req, res) => {
     try {
-        const result = await authorsModel.findByIdAndDelete(req.params.id);
+        const result = await authorsModel.findByIdAndUpdate(
+            req.params.id,
+            { deletedAt: new Date() },
+            { new: true }
+        );
 
         if (!result) {
             return res.status(404).json({ error: "Author not found" });
         }
 
-        res.status(200).json({msg: "Author deleted successfully."});
+        res.status(200).json({ message: "Author soft deleted successfully" });
     } catch {
         res.status(500).json({ error: "Failed to delete author" });
     }

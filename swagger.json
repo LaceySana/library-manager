@@ -15,6 +15,10 @@
         {
             "name": "books",
             "description": "Endpoints for managing books"
+        },
+        {
+            "name": "debug",
+            "description": "Debug endpoints (includes soft deleted data)"
         }
     ],
     "schemes": ["http"],
@@ -25,6 +29,20 @@
                 "responses": {
                     "default": {
                         "description": ""
+                    }
+                }
+            }
+        },
+        "/authors/debug/all": {
+            "get": {
+                "tags": ["debug"],
+                "description": "Get ALL authors including soft deleted (debug only)",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
                     }
                 }
             }
@@ -175,6 +193,20 @@
                 "responses": {
                     "default": {
                         "description": ""
+                    }
+                }
+            }
+        },
+        "/books/debug/all": {
+            "get": {
+                "tags": ["debug"],
+                "description": "Get ALL books including soft deleted (debug only)",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
                     }
                 }
             }

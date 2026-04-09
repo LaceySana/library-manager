@@ -1,7 +1,25 @@
 const router = require("express").Router();
 const { booksController } = require("../controllers");
-// const validator = require("../middleware/validate");
+const { validateBook } = require("../validation");
 
+// DEBUG ROUTE (shows ALL books including soft deleted)
+router.get(
+    "/debug/all",
+    /* #swagger.tags = ['debug']
+       #swagger.description = 'Get ALL books including soft deleted (debug only)'
+    */
+    async (req, res) => {
+        try {
+            const booksModel = require("../models/books");
+            const books = await booksModel.find({});
+            res.status(200).json(books);
+        } catch (error) {
+            res.status(500).json({ message: "Error fetching debug data", error });
+        }
+    }
+);
+
+//GET ALL
 router.get(
     "/",
     /* #swagger.description = 'Get all books.'
@@ -26,6 +44,7 @@ router.get(
 
 router.post(
     "/",
+    validateBook.create,
     /* #swagger.description = "Create a new book."
        #swagger.tags = ["books"]
        #swagger.parameters['body'] = {
@@ -45,12 +64,12 @@ router.post(
           }
        }
     */
-    /* validator.createBook, */
     booksController.create
 );
 
 router.put(
     "/:id",
+    validateBook.update,
     /* #swagger.description = "Update book by ID."
        #swagger.tags = ["books"]
        #swagger.parameters['id'] = {
@@ -74,7 +93,6 @@ router.put(
           }
        }
     */
-    /* validator.updateBook, */
     booksController.update
 );
 
