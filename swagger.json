@@ -5,7 +5,7 @@
         "description": "API for managing library members, book inventory, authors, and loans.",
         "version": "1.0.0"
     },
-    "host": "localhost:3000",
+    "host": "library-manager-f7lf.onrender.com",
     "basePath": "/",
     "tags": [
         {
