@@ -5,7 +5,7 @@
         "description": "API for managing library members, book inventory, authors, and loans.",
         "version": "1.0.0"
     },
-    "host": "library-manager-f7lf.onrender.com",
+    "host": "localhost:3000",
     "basePath": "/",
     "tags": [
         {
@@ -21,7 +21,7 @@
             "description": "Debug endpoints (includes soft deleted data)"
         }
     ],
-    "schemes": ["http"],
+    "schemes": ["https"],
     "paths": {
         "/api-docs": {
             "get": {
