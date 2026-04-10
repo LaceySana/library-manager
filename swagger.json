@@ -21,7 +21,7 @@
             "description": "Debug endpoints (includes soft deleted data)"
         }
     ],
-    "schemes": ["http"],
+    "schemes": ["https"],
     "paths": {
         "/api-docs": {
             "get": {

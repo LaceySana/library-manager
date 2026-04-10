@@ -1,6 +1,8 @@
 const router = require("express").Router();
 const { authorsController } = require("../controllers");
 const { validateAuthor } = require("../validation");
+const { authenticate } = require("../middleware/authentication");
+
 
 router.get(
     "/debug/all",
@@ -61,6 +63,7 @@ router.post(
      }
   }
 */
+    authenticate,
     authorsController.create
 );
 
@@ -89,6 +92,7 @@ router.put(
      }
   }
 */
+    authenticate,
     authorsController.update
 );
 
@@ -103,6 +107,7 @@ router.delete(
      type: 'string'
   }
 */
+    authenticate,
     authorsController.delete
 );
 module.exports = router;
