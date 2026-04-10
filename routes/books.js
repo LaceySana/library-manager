@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const { booksController } = require("../controllers");
 const { validateBook } = require("../validation");
+const { authenticate } = require("../middleware/authentication");
 
 // DEBUG ROUTE (shows ALL books including soft deleted)
 router.get(
@@ -64,6 +65,8 @@ router.post(
           }
        }
     */
+    authenticate,
+
     booksController.create
 );
 
@@ -93,6 +96,7 @@ router.put(
           }
        }
     */
+    authenticate,
     booksController.update
 );
 
@@ -107,6 +111,7 @@ router.delete(
           type: 'string'
        }
     */
+    authenticate,
     booksController.delete
 );
 
