@@ -17,12 +17,17 @@ const authorSchema = new mongoose.Schema({
         required: true
     },
     dod: {
-        type: String,
-        default: Date.now
+        type: String
     },
     biography: {
         type: String
+    },
+
+    //soft delete feature
+    deletedAt: {
+        type: Date,
+        default: null
     }
 });
 
-module.exports = mongoose.model("authors", authorSchema);
+module.exports = mongoose.model("Authors", authorSchema);

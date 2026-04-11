@@ -3,7 +3,7 @@ const bookController = {};
 
 bookController.getAll = async (req, res) => {
     try {
-        const books = await booksModel.find({});
+        const books = await booksModel.find({ deletedAt: null });
         res.status(200).json(books);
     } catch (error) {
         res.status(500).json({ message: "Unable to get books.", error });
@@ -12,7 +12,10 @@ bookController.getAll = async (req, res) => {
 
 bookController.get = async (req, res) => {
     try {
-        const book = await booksModel.findById(req.params.id);
+        const book = await booksModel.findOne({
+            _id: req.params.id,
+            deletedAt: null
+        });
         if (!book) {
             return res.status(404).json("No matching book found.");
         }
@@ -73,15 +76,25 @@ bookController.update = async (req, res) => {
 
 bookController.delete = async (req, res) => {
     try {
-        const result = await booksModel.findByIdAndDelete(req.params.id);
+        const result = await booksModel.findByIdAndUpdate(
+            req.params.id,
+            { deletedAt: new Date() },
+            { new: true }
+        );
 
         if (!result) {
             return res.status(404).json("No matching book found.");
         }
 
-        res.status(200).json({ message: "Book deleted successfully." }); // Fixed: was missing response
+        return res.status(200).json({
+            message: "Book soft deleted successfully.",
+            data: result
+        });
     } catch (error) {
-        res.status(500).json({ message: "Error deleting book.", error }); // Fixed: was saying "updating" in error message
+        return res.status(500).json({
+            message: "Error deleting book.",
+            error: error.message
+        });
     }
 };
 
