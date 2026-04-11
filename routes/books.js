@@ -45,6 +45,7 @@ router.get(
 
 router.post(
     "/",
+    authenticate,
     validateBook.create,
     /* #swagger.description = "Create a new book."
        #swagger.tags = ["books"]
@@ -65,13 +66,12 @@ router.post(
           }
        }
     */
-    authenticate,
-
     booksController.create
 );
 
 router.put(
     "/:id",
+    authenticate,
     validateBook.update,
     /* #swagger.description = "Update book by ID."
        #swagger.tags = ["books"]
@@ -96,12 +96,12 @@ router.put(
           }
        }
     */
-    authenticate,
     booksController.update
 );
 
 router.delete(
     "/:id",
+    authenticate,
     /* #swagger.description = 'Delete book by ID.'
        #swagger.tags = ['books']
        #swagger.parameters['id'] = {
@@ -111,7 +111,6 @@ router.delete(
           type: 'string'
        }
     */
-    authenticate,
     booksController.delete
 );
 

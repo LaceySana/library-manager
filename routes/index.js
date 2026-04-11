@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const passport = require("passport");
+const { handleErrors } = require("../utils");
 
 /* #swagger.start */
 
@@ -7,16 +8,23 @@ const passport = require("passport");
 router.use("/", require("./swagger"));
 
 // Authentication Routes
-router.get("/login", passport.authenticate("github"), (req, res) => {});
+router.get(
+    "/login",
+    passport.authenticate("github"),
+    handleErrors((req, res) => {})
+);
 
-router.get("/logout", (req, res) => {
-	req.logout((err) => {
-		if (err) {
-			return res.status(500).json({ message: "Error logging out." });
-		}
-		res.redirect("/");
-	});
-});
+router.get(
+    "/logout",
+    handleErrors((req, res) => {
+        req.logout((err) => {
+            if (err) {
+                return res.status(500).json({ message: "Error logging out." });
+            }
+            res.redirect("/");
+        });
+    })
+);
 
 // Author Routes
 router.use("/authors", require("./authors"));

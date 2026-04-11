@@ -1,20 +1,22 @@
-const { body } = require("express-validator");
+// loan.js
+const loanRules = {};
 
-const validateLoan = [
-  body("memberId")
-    .notEmpty()
-    .withMessage("Member ID is required"),
+/* Validation Rules */
 
-  body("bookId")
-    .notEmpty()
-    .withMessage("Book ID is required"),
+// CREATE rules
+loanRules.create = {
+    memberId: "required|string",
+    bookId: "required|string",
+    loanDate: "required|string",
+    returnDate: "string"
+};
 
-  body("loanDate")
-    .notEmpty()
-    .withMessage("Loan date is required"),
+// UPDATE rules
+loanRules.update = {
+    memberId: "string",
+    bookId: "string",
+    loanDate: "string",
+    returnDate: "string"
+};
 
-  body("returnDate")
-    .optional()
-];
-
-module.exports = validateLoan;
+module.exports = loanRules;

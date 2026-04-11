@@ -1,21 +1,20 @@
-const { body } = require("express-validator");
+// members.js
+const memberRules = {};
 
-const validateMember = [
-  body("name")
-    .trim()
-    .notEmpty()
-    .withMessage("Name is required"),
+/* Validation Rules */
 
-  body("email")
-    .trim()
-    .notEmpty()
-    .withMessage("Email is required")
-    .isEmail()
-    .withMessage("Valid email is required"),
+// CREATE rules
+memberRules.create = {
+    name: "required|string",
+    email: "required|string|email",
+    membershipDate: "required|string"
+};
 
-  body("membershipDate")
-    .notEmpty()
-    .withMessage("Membership date is required")
-];
+// UPDATE rules
+memberRules.update = {
+    name: "string",
+    email: "string|email",
+    membershipDate: "string"
+};
 
-module.exports = validateMember;
+module.exports = memberRules;
