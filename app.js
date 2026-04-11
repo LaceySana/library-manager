@@ -8,7 +8,9 @@ const session = require("express-session");
 const GitHubstrategy = require("passport-github2").Strategy;
 const cors = require("cors");
 
-connectDB();
+if (process.env.NODE_ENV !== "test") {
+    connectDB();
+}
 
 const port = process.env.PORT || 5000;
 
@@ -86,6 +88,10 @@ app.get(
     }
 );
 
-app.listen(port, () => {
-    console.log(`\nWeb server is listening at \x1b[34mhttp://localhost:${port}\x1b[0m`);
-});
+if (process.env.NODE_ENV !== "test") {
+    app.listen(port, () => {
+        console.log(`\nWeb server is listening at \x1b[34mhttp://localhost:${port}\x1b[0m`);
+    });
+}
+
+module.exports = app;

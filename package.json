@@ -4,7 +4,7 @@
     "description": "Manage library members, book inventory, authors, and loans.",
     "main": "app.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "test": "jest",
         "build": "npm install && npm run swagger",
         "dev": "nodemon -q --ignore swagger.json --exec \"npm --silent run swagger && node app.js\"",
         "start": "nodemon app.js",
@@ -45,8 +45,10 @@
         "eslint-config-prettier": "^10.1.8",
         "eslint-plugin-prettier": "^5.5.5",
         "globals": "^17.4.0",
+        "jest": "^30.3.0",
         "nodemon": "^3.1.14",
         "prettier": "^3.8.1",
+        "supertest": "^7.2.2",
         "swagger-autogen": "^2.23.7"
     }
 }
