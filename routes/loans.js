@@ -35,21 +35,12 @@ router.post(
           description: 'Loan data',
           required: true,
           schema: {
-<<<<<<< Updated upstream
              $memberId: "64a1b2c3d4e5f6a7b8c9d0e1",
              $bookId: "64a1b2c3d4e5f6a7b8c9d0e2",
              $dueDate: "2025-12-31",
              loanDate: "2025-01-01",
              returnDate: "2025-06-01",
              status: "borrowed"
-=======
-              $memberId: "507f1f77bcf86cd799439011",
-              $bookId: "507f1f77bcf86cd799439012",
-              loanDate: "2025-01-01",
-              $dueDate: "2025-01-15",
-              returnDate: "",
-              status: "borrowed"
->>>>>>> Stashed changes
           }
        }
     */
@@ -73,19 +64,11 @@ router.put(
           description: 'Loan data',
           required: true,
           schema: {
-<<<<<<< Updated upstream
              memberId: "64a1b2c3d4e5f6a7b8c9d0e1",
              bookId: "64a1b2c3d4e5f6a7b8c9d0e2",
              dueDate: "2025-12-31",
              returnDate: "2025-06-01",
              status: "returned"
-=======
-              memberId: "507f1f77bcf86cd799439011",
-              bookId: "507f1f77bcf86cd799439012",
-              dueDate: "2025-01-15",
-              returnDate: "2025-01-10",
-              status: "returned"
->>>>>>> Stashed changes
           }
        }
     */
@@ -108,8 +91,4 @@ router.delete(
     loansController.delete
 );
 
-<<<<<<< Updated upstream
 module.exports = router;
-=======
-module.exports = router;
->>>>>>> Stashed changes

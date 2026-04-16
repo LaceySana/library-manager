@@ -8,9 +8,7 @@ const session = require("express-session");
 const GitHubstrategy = require("passport-github2").Strategy;
 const cors = require("cors");
 
-if (process.env.NODE_ENV !== "test") {
-    connectDB();
-}
+connectDB();
 
 const port = process.env.PORT || 5000;
 
@@ -22,10 +20,6 @@ if (process.env.NODE_ENV === "development") {
     app.use(morgan("dev"));
 }
 
-<<<<<<< Updated upstream
-=======
-// Session configuration
->>>>>>> Stashed changes
 app.use(
     session({
         secret: process.env.SESSION_SECRET || "secret",
@@ -33,27 +27,13 @@ app.use(
         saveUninitialized: false
     })
 );
-<<<<<<< Updated upstream
 
 app.use(passport.initialize()).use(passport.session());
 
-=======
-
-// Initialize Passport and restore authentication state, if any, from the session.
-app.use(express.json())
-    .use(passport.initialize())
-    .use(passport.session());
-
-// Swagger UI
->>>>>>> Stashed changes
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./swagger.json");
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-<<<<<<< Updated upstream
-=======
-// Routes
->>>>>>> Stashed changes
 app.use("/", require("./routes"));
 
 passport.use(
@@ -65,35 +45,17 @@ passport.use(
         },
         (accessToken, refreshToken, profile, done) => {
             done(null, profile);
-<<<<<<< Updated upstream
         }
     )
 );
 
 passport.serializeUser((user, done) => done(null, user));
 passport.deserializeUser((user, done) => done(null, user));
-=======
-        },
-    ),
-);
-
-passport.serializeUser((user, done) => {
-    done(null, user);
-});
-
-passport.deserializeUser((user, done) => {
-    done(null, user);
-});
->>>>>>> Stashed changes
 
 process.on("uncaughtException", (err, origin) => {
     console.log(`Caught exception: ${err}\nException origin: ${origin}`);
 });
 
-<<<<<<< Updated upstream
-=======
-// Root Route
->>>>>>> Stashed changes
 app.get("/", (req, res) => {
     res.send(
         req.session.user
@@ -114,19 +76,10 @@ app.get(
     }
 );
 
-<<<<<<< Updated upstream
-// Only start server when run directly, not when required by tests
-=======
-// Only start the server if this file is run directly (not imported by tests)
->>>>>>> Stashed changes
 if (require.main === module) {
     app.listen(port, () => {
         console.log(`\nWeb server is listening at \x1b[34mhttp://localhost:${port}\x1b[0m`);
     });
 }
 
-<<<<<<< Updated upstream
 module.exports = app;
-=======
-module.exports = app;
->>>>>>> Stashed changes

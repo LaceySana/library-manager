@@ -17,7 +17,6 @@
       "description": "Endpoints for managing books"
     },
     {
-<<<<<<< Updated upstream
       "name": "members",
       "description": "Endpoints for managing library members"
     },
@@ -26,8 +25,6 @@
       "description": "Endpoints for managing book loans"
     },
     {
-=======
->>>>>>> Stashed changes
       "name": "debug",
       "description": "Debug endpoints (includes soft deleted data)"
     }
@@ -56,19 +53,6 @@
         }
       }
     },
-<<<<<<< Updated upstream
-=======
-    "/api-docs": {
-      "get": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    },
->>>>>>> Stashed changes
     "/authors/debug/all": {
       "get": {
         "tags": [
@@ -619,11 +603,7 @@
         "tags": [
           "members"
         ],
-<<<<<<< Updated upstream
         "description": "Soft delete a member by ID.",
-=======
-        "description": "Delete a member by ID.",
->>>>>>> Stashed changes
         "parameters": [
           {
             "name": "id",
@@ -668,7 +648,6 @@
               "properties": {
                 "memberId": {
                   "type": "string",
-<<<<<<< Updated upstream
                   "example": "64a1b2c3d4e5f6a7b8c9d0e1"
                 },
                 "bookId": {
@@ -678,31 +657,14 @@
                 "dueDate": {
                   "type": "string",
                   "example": "2025-12-31"
-=======
-                  "example": "507f1f77bcf86cd799439011"
-                },
-                "bookId": {
-                  "type": "string",
-                  "example": "507f1f77bcf86cd799439012"
->>>>>>> Stashed changes
                 },
                 "loanDate": {
                   "type": "string",
                   "example": "2025-01-01"
                 },
-<<<<<<< Updated upstream
                 "returnDate": {
                   "type": "string",
                   "example": "2025-06-01"
-=======
-                "dueDate": {
-                  "type": "string",
-                  "example": "2025-01-15"
-                },
-                "returnDate": {
-                  "type": "string",
-                  "example": ""
->>>>>>> Stashed changes
                 },
                 "status": {
                   "type": "string",
@@ -768,7 +730,6 @@
               "properties": {
                 "memberId": {
                   "type": "string",
-<<<<<<< Updated upstream
                   "example": "64a1b2c3d4e5f6a7b8c9d0e1"
                 },
                 "bookId": {
@@ -782,21 +743,6 @@
                 "returnDate": {
                   "type": "string",
                   "example": "2025-06-01"
-=======
-                  "example": "507f1f77bcf86cd799439011"
-                },
-                "bookId": {
-                  "type": "string",
-                  "example": "507f1f77bcf86cd799439012"
-                },
-                "dueDate": {
-                  "type": "string",
-                  "example": "2025-01-15"
-                },
-                "returnDate": {
-                  "type": "string",
-                  "example": "2025-01-10"
->>>>>>> Stashed changes
                 },
                 "status": {
                   "type": "string",
