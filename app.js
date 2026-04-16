@@ -19,27 +19,21 @@ app.use(express.json());
 if (process.env.NODE_ENV === "development") {
     app.use(morgan("dev"));
 }
-// Session configuration
+
 app.use(
     session({
-        secret: "secret",
+        secret: process.env.SESSION_SECRET || "secret",
         resave: false,
-        saveUninitialized: false,
-    }),
+        saveUninitialized: false
+    })
 );
-// Initialize Passport and restore authentication state, if any, from the session.
-app.use(express.json())
-    .use(passport.initialize())
-    .use(passport.session());
 
-// ✅ Swagger UI ONLY (this is enough)
+app.use(passport.initialize()).use(passport.session());
+
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./swagger.json");
-
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-
-// Routes
 app.use("/", require("./routes"));
 
 passport.use(
@@ -47,35 +41,26 @@ passport.use(
         {
             clientID: process.env.GITHUB_CLIENT_ID,
             clientSecret: process.env.GITHUB_CLIENT_SECRET,
-            callbackURL: process.env.CALLBACK_URL,
+            callbackURL: process.env.CALLBACK_URL
         },
         (accessToken, refreshToken, profile, done) => {
-            // User.findOrCreate({ githubId: profile.id }, function (err, user) => {
             done(null, profile);
-            //});
-        },
-    ),
+        }
+    )
 );
 
-passport.serializeUser((user, done) => {
-    done(null, user);
-});
-
-passport.deserializeUser((user, done) => {
-    done(null, user);
-}); 
+passport.serializeUser((user, done) => done(null, user));
+passport.deserializeUser((user, done) => done(null, user));
 
 process.on("uncaughtException", (err, origin) => {
     console.log(`Caught exception: ${err}\nException origin: ${origin}`);
 });
 
-// Test route to check if the user is logged in
-// Root Route
 app.get("/", (req, res) => {
     res.send(
         req.session.user
             ? `Hello, you logged in as ${req.session.user.username}!`
-            : "Logged Out",
+            : "Logged Out"
     );
 });
 
@@ -83,14 +68,19 @@ app.get(
     "/github/callback",
     passport.authenticate("github", {
         failureRedirect: "/api-docs",
-        session: true,
+        session: true
     }),
     (req, res) => {
         req.session.user = req.user;
         res.redirect("/");
-    },
+    }
 );
 
-app.listen(port, () => {
-    console.log(`\nWeb server is listening at \x1b[34mhttp://localhost:${port}\x1b[0m`);
-});
+// Only start server when run directly, not when required by tests
+if (require.main === module) {
+    app.listen(port, () => {
+        console.log(`\nWeb server is listening at \x1b[34mhttp://localhost:${port}\x1b[0m`);
+    });
+}
+
+module.exports = app;
