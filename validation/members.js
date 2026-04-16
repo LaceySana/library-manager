@@ -1,5 +1,9 @@
 const memberRules = {};
 
+<<<<<<< Updated upstream
+=======
+// CREATE rules
+>>>>>>> Stashed changes
 memberRules.create = {
     firstName: "required|string",
     lastName: "required|string",
@@ -10,6 +14,10 @@ memberRules.create = {
     role: "string|in:member,admin"
 };
 
+<<<<<<< Updated upstream
+=======
+// UPDATE rules
+>>>>>>> Stashed changes
 memberRules.update = {
     firstName: "string",
     lastName: "string",
@@ -20,4 +28,8 @@ memberRules.update = {
     role: "string|in:member,admin"
 };
 
+<<<<<<< Updated upstream
 module.exports = memberRules;
+=======
+module.exports = memberRules;
+>>>>>>> Stashed changes

@@ -19,6 +19,12 @@ router.use("/books", require("./books"));
 router.use("/members", require("./members"));
 router.use("/loans", require("./loans"));
 
+// Member Routes
+router.use("/members", require("./members"));
+
+// Loan Routes
+router.use("/loans", require("./loans"));
+
 /* #swagger.end */
 
 module.exports = router;

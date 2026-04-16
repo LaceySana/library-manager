@@ -35,6 +35,7 @@ router.post(
           description: 'Member data',
           required: true,
           schema: {
+<<<<<<< Updated upstream
              $firstName: "John",
              $lastName: "Doe",
              $phone: "555-1234",
@@ -42,6 +43,15 @@ router.post(
              $password: "secret123",
              status: "active",
              role: "member"
+=======
+              $firstName: "John",
+              $lastName: "Doe",
+              $phone: "555-1234",
+              $email: "john@example.com",
+              $password: "secret123",
+              status: "active",
+              role: "member"
+>>>>>>> Stashed changes
           }
        }
     */
@@ -65,6 +75,7 @@ router.put(
           description: 'Member data',
           required: true,
           schema: {
+<<<<<<< Updated upstream
              firstName: "John",
              lastName: "Doe",
              phone: "555-1234",
@@ -72,6 +83,15 @@ router.put(
              password: "secret123",
              status: "active",
              role: "member"
+=======
+              firstName: "John",
+              lastName: "Doe",
+              phone: "555-1234",
+              email: "john@example.com",
+              password: "secret123",
+              status: "active",
+              role: "member"
+>>>>>>> Stashed changes
           }
        }
     */
@@ -82,7 +102,11 @@ router.put(
 router.delete(
     "/:id",
     /* #swagger.tags = ['members']
+<<<<<<< Updated upstream
        #swagger.description = 'Soft delete a member by ID.'
+=======
+       #swagger.description = 'Delete a member by ID.'
+>>>>>>> Stashed changes
        #swagger.parameters['id'] = {
           in: 'path',
           description: 'Member ID',
@@ -94,4 +118,8 @@ router.delete(
     membersController.delete
 );
 
+<<<<<<< Updated upstream
 module.exports = router;
+=======
+module.exports = router;
+>>>>>>> Stashed changes
